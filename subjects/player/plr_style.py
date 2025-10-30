@@ -16,9 +16,9 @@ class PlrStyle(BaseModel):
     @computed_field
     def sess_fig(self) -> SessionFigures:
         session_hand_amount = int(stats.norm(self.base_hand_amount,self.std_hand_amount).rvs())
-        ev_session =  session_hand_amount * self.bet
+        ev_session =  session_hand_amount * self.bet*self.ev
         std_session = (session_hand_amount**0.5)*self.bet*self.std
-        res_session = stats.norm(ev_session,std_session)
+        res_session = stats.norm(ev_session,std_session).rvs()
         return SessionFigures(hand_amount=session_hand_amount,result=res_session)
     
     
