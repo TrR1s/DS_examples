@@ -8,6 +8,8 @@ class Player(BaseModel):
     id: int
     style: PlrStyle
     fig: PlayerFigures
+    def __hash__(self):
+        return hash(self.id)
     
 
 
@@ -43,16 +45,21 @@ class TemplateForPool(BaseModel):
             fig= PlayerFigures()
             
         )
-            
+        
+    def do_pool(self) -> set[Player]|None:
+        if len(self.id_set) < self.pool_depth:
+            return None
+        plr_pool = set()
+        for _ in range(self.pool_depth):
+            plr_pool.add(self.do_one_plr())
     
-# def do_plr_set()
-
+        return plr_pool
 if __name__ == '__main__':
     import json
     
-    plr_stl = TemplateForPool(
+    plr_template = TemplateForPool(
             id_set= set(range(100,200)),
-            pool_depth = 20,
+            pool_depth = 5,
             ev = -0.02,
             std = 1.4,
             bet = 10,
@@ -60,6 +67,9 @@ if __name__ == '__main__':
             std_hand_amount = 12,
     
     )
-    plr_1 = plr_stl.do_one_plr()
-    pretty_json = json.dumps(plr_1.model_dump(), indent=4)
-    print(pretty_json)
+    plr_pool = plr_template.do_pool()
+    for curr_plr in plr_pool:
+        pretty_json = json.dumps(curr_plr.model_dump(), indent=4)
+        print(pretty_json)
+    
+    print(plr_template.id_set)
