@@ -5,7 +5,7 @@ import pandas as pd
 
 class WeekDayCoef(BaseModel):
     
-    week_day_coef:list[float]=Field(default=[0.5,0.6,0.7,0.6,1.2,1.3,1])
+    week_day_coef:list[float]=Field(default=[-0.5,-0.4,-0.3,-0.4,0.2,0.3,0])
     today: datetime|None
     
     @computed_field
