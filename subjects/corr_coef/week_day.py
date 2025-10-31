@@ -15,9 +15,9 @@ class WeekDayCoef(BaseModel):
         return datetime.weekday(self.today)
     
     @computed_field
-    def today_coef(self) -> float|None:
+    def add_coef(self) -> float|None:
         if self.week_day_int is None:
-            return None
+            return 0
         return self.week_day_coef[self.week_day_int]
     
 if __name__ == '__main__':
