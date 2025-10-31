@@ -10,8 +10,8 @@ class PlrStyle(BaseModel):
     std:float
     bet: float
     base_hand_amount: int
-    std_hand_amount: int
-    corr_coef: int = Field(default=1)
+    std_hand_amount: float
+    corr_coef: float = Field(default=1)
     
     @computed_field
     def sess_fig(self) -> SessionFigures:

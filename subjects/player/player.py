@@ -1,6 +1,65 @@
+from pydantic import BaseModel, computed_field,field_validator,Field
 from plr_fig import PlayerFigures
 from plr_style import PlrStyle
+from scipy import stats
+import random
 
-class Player:
-    plr_style: PlrStyle
-    plr_fig: PlayerFigures
+class Player(BaseModel):
+    id: int
+    style: PlrStyle
+    fig: PlayerFigures
+    
+
+
+class TemplateForPool(BaseModel):
+    id_set:set[int]
+    pool_depth: int
+    ev:float
+    std:float
+    bet: float
+    base_hand_amount: int
+    std_hand_amount: int
+    inner_std_proportion: float = Field(default=0.03)
+    
+    def do_one_plr(self) -> Player|None:
+        if len(self.id_set) == 0:
+            return None
+        plr_ev = stats.norm(self.ev,abs(self.ev*self.inner_std_proportion)).rvs()
+        plr_std = stats.norm(self.std,abs(self.std*self.inner_std_proportion)).rvs()
+        plr_bet = stats.norm(self.bet,abs(self.bet*self.inner_std_proportion)).rvs()
+        plr_base_hand_amount = int(stats.norm(self.base_hand_amount,abs(self.base_hand_amount*self.inner_std_proportion)).rvs())
+        plr_std_hand_amount = stats.norm(self.std_hand_amount,abs(self.std_hand_amount*self.inner_std_proportion)).rvs()
+        plr_stl = PlrStyle(ev=plr_ev,
+                           std=plr_std,
+                           bet=plr_bet, 
+                           base_hand_amount=plr_base_hand_amount,
+                           std_hand_amount=plr_std_hand_amount
+                           )
+        plr_id = random.choice(list(self.id_set))
+        self.id_set.remove(plr_id)
+        return Player(
+            id=plr_id,
+            style=plr_stl,
+            fig= PlayerFigures()
+            
+        )
+            
+    
+# def do_plr_set()
+
+if __name__ == '__main__':
+    import json
+    
+    plr_stl = TemplateForPool(
+            id_set= set(range(100,200)),
+            pool_depth = 20,
+            ev = -0.02,
+            std = 1.4,
+            bet = 10,
+            base_hand_amount =70,
+            std_hand_amount = 12,
+    
+    )
+    plr_1 = plr_stl.do_one_plr()
+    pretty_json = json.dumps(plr_1.model_dump(), indent=4)
+    print(pretty_json)

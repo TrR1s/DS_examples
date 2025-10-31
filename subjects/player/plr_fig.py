@@ -17,14 +17,16 @@ class PlayerFigures(BaseModel):
     hand_amounts: list[int] = Field(default=[])
     
     @computed_field
-    def total_results(self)-> TotalFig:
+    def total_results(self)-> TotalFig|None:
+        if len(self.results) ==0: return None
         res_np = np.array(self.results)
         return TotalFig(sum=res_np.sum(),
                         mean=res_np.mean(),
                         std=res_np.std(ddof=1))
     
     @computed_field
-    def total_hands(self)-> TotalFig:
+    def total_hands(self)-> TotalFig|None:
+        if len(self.hand_amounts) ==0: return None
         hands_np = np.array(self.hand_amounts)
         return TotalFig(sum=hands_np.sum(),
                         mean=hands_np.mean(),

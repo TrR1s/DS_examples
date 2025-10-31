@@ -12,6 +12,7 @@ class TrendCoeff(BaseModel):
             return 0
         return self.trend_list[self.today]
 
+
     
 if __name__ == '__main__':
     trend_coeff = TrendCoeff(today=datetime.strptime("05/05/2017", "%d/%m/%Y"))
