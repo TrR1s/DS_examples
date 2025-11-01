@@ -2,13 +2,19 @@ from pydantic import BaseModel, computed_field,field_validator,Field
 from scipy import stats
 import random
 
-from subjects.player.plr_fig import PlayerFigures
+from subjects.player.plr_fig import PlayerFigures,SessionFigures
 from subjects.player.plr_style import PlrStyle
 
 class Player(BaseModel):
     id: int
     style: PlrStyle
     fig: PlayerFigures
+    
+    def play_one_session(self):
+        self.fig.visits +=1
+        self.fig.results.append(self.style.sess_fig.result)
+        self.fig.hand_amounts.append(self.style.sess_fig.hand_amount)
+    
     def __hash__(self):
         return hash(self.id)
     

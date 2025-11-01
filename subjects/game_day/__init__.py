@@ -1,1 +1,1 @@
-from .game_day import GameDay
+from .game_day import GameDay,DayFigures

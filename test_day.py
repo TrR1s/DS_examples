@@ -1,7 +1,6 @@
-# from subjects.game_day import GameDay
-from subjects.player import PlrPool
-from subjects.game_day import GameDay
-
+import json
+from subjects.player import PlrPool,Player
+from subjects.game_day import GameDay,DayFigures
 
 plr_pool = PlrPool()
 print(len(plr_pool.pool))
@@ -9,4 +8,10 @@ game_day = GameDay(
     plr_pool=plr_pool
 )
 
-print(game_day.hand_count)
+day_fig = game_day.dayfig
+
+plr1 = day_fig.day_plr_pool[0]
+
+
+pretty_json = json.dumps(plr1.model_dump(), indent=4)
+print(pretty_json)
