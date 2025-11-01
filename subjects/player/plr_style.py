@@ -13,7 +13,7 @@ class PlrStyle(BaseModel):
     std_hand_amount: float
     corr_coef: float = Field(default=1)
     
-    @computed_field
+    # @computed_field
     def sess_fig(self) -> SessionFigures:
         session_hand_amount = int(stats.norm(self.base_hand_amount,self.std_hand_amount).rvs())
         ev_session =  session_hand_amount * self.bet*self.ev

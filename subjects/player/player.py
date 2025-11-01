@@ -12,8 +12,9 @@ class Player(BaseModel):
     
     def play_one_session(self):
         self.fig.visits +=1
-        self.fig.results.append(self.style.sess_fig.result)
-        self.fig.hand_amounts.append(self.style.sess_fig.hand_amount)
+        sess_fig = self.style.sess_fig()
+        self.fig.results.append(sess_fig.result)
+        self.fig.hand_amounts.append(sess_fig.hand_amount)
     
     def __hash__(self):
         return hash(self.id)
