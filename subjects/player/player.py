@@ -1,6 +1,6 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
-from plr_fig import PlayerFigures
-from plr_style import PlrStyle
+from subjects.player import PlayerFigures
+from subjects.player import PlrStyle
 from scipy import stats
 import random
 

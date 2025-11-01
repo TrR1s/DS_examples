@@ -1,7 +1,7 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
 from scipy import stats
 
-from plr_fig import SessionFigures
+from subjects.player import SessionFigures
 
 
 
