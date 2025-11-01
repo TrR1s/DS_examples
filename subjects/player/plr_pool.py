@@ -1,7 +1,7 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
 
-from subjects.player import TemplateForPool,Player
-from subjects.player import ID_SET,low_plr_template,low_ludoman_template,silver_plr_template,vip_plr_template,cheet_plr_template
+from subjects.player.player import TemplateForPool,Player
+from subjects.player.templates import ID_SET,low_plr_template,low_ludoman_template,silver_plr_template,vip_plr_template,cheet_plr_template
 
 
 

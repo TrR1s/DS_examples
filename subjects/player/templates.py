@@ -1,4 +1,4 @@
-from subjects.player import TemplateForPool
+from subjects.player.player import TemplateForPool
 
 ID_SET = set(range(100,1000))
 

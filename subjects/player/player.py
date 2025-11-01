@@ -1,8 +1,9 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
-from subjects.player import PlayerFigures
-from subjects.player import PlrStyle
 from scipy import stats
 import random
+
+from subjects.player.plr_fig import PlayerFigures
+from subjects.player.plr_style import PlrStyle
 
 class Player(BaseModel):
     id: int
