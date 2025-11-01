@@ -1,13 +1,14 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
 from datetime import datetime
-from lottery import LotteryCoeff 
-from week_day import WeekDayCoef 
-from trend import TrendCoeff 
+
+from subjects.corr_coef.lottery import LotteryCoeff 
+from subjects.corr_coef.week_day import WeekDayCoef 
+from subjects.corr_coef.trend import TrendCoeff 
 
 class CorrCoeff(BaseModel):
-    today: datetime
+    today: datetime=Field(default=datetime.today())
     lottery: LotteryCoeff|None = Field(default=None)
-    week_day: WeekDayCoef|None = Field(default=None)
+    week_day: WeekDayCoef|None = Field(default=WeekDayCoef())
     trend: TrendCoeff|None = Field(default=None)
     
     @computed_field
@@ -49,5 +50,5 @@ if __name__ == '__main__':
         trend=trend_coeff, 
         today=datetime.strptime("05/05/2017", "%d/%m/%Y")
         )
-    print(corr_coef.coeff)
+    
     

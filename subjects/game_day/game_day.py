@@ -1,5 +1,4 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
-from datetime import datetime
 import random
 
 from subjects.player import PlrPool,Player
@@ -12,7 +11,7 @@ class DayFigures(BaseModel):
     
     
 class GameDay(BaseModel):
-    plr_pool: PlrPool
+    plr_pool: PlrPool= Field(default=PlrPool())
     base_head_count: int= Field(default=20)
     corr_coef: float = Field(default=1.)
     # today: datetime
