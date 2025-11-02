@@ -15,6 +15,7 @@ class Player(BaseModel):
         sess_fig = self.style.sess_fig()
         self.fig.results.append(sess_fig.result)
         self.fig.hand_amounts.append(sess_fig.hand_amount)
+        self.fig.bet_amounts.append(sess_fig.bet_amount)
     
     def __hash__(self):
         return hash(self.id)

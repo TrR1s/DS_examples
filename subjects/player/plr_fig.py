@@ -8,6 +8,7 @@ class TotalFig(BaseModel):
     
 
 class SessionFigures(BaseModel):
+    bet_amount:float
     hand_amount: int
     result: float
     
@@ -15,6 +16,7 @@ class PlayerFigures(BaseModel):
     visits: int = Field(default=0)
     results: list[float] = Field(default=[])
     hand_amounts: list[int] = Field(default=[])
+    bet_amounts: list[float] = Field(default=[])
     
     @computed_field
     def total_results(self)-> TotalFig|None:
@@ -31,6 +33,14 @@ class PlayerFigures(BaseModel):
         return TotalFig(sum=hands_np.sum(),
                         mean=hands_np.mean(),
                         std=hands_np.std(ddof=1))
+        
+    @computed_field
+    def total_bets(self)-> TotalFig|None:
+        if len(self.bet_amounts) ==0: return None
+        bets_np = np.array(self.bet_amounts)
+        return TotalFig(sum=bets_np.sum(),
+                        mean=bets_np.mean(),
+                        std=bets_np.std(ddof=1))
 
 
 if __name__ == '__main__':
