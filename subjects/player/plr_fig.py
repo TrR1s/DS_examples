@@ -24,7 +24,7 @@ class PlayerFigures(BaseModel):
         res_np = np.array(self.results)
         return TotalFig(sum=res_np.sum(),
                         mean=res_np.mean(),
-                        std=res_np.std(ddof=1))
+                        std=res_np.std())
     
     @computed_field
     def total_hands(self)-> TotalFig|None:
@@ -32,7 +32,7 @@ class PlayerFigures(BaseModel):
         hands_np = np.array(self.hand_amounts)
         return TotalFig(sum=hands_np.sum(),
                         mean=hands_np.mean(),
-                        std=hands_np.std(ddof=1))
+                        std=hands_np.std())
         
     @computed_field
     def total_bets(self)-> TotalFig|None:
@@ -40,7 +40,7 @@ class PlayerFigures(BaseModel):
         bets_np = np.array(self.bet_amounts)
         return TotalFig(sum=bets_np.sum(),
                         mean=bets_np.mean(),
-                        std=bets_np.std(ddof=1))
+                        std=bets_np.std())
 
 
 if __name__ == '__main__':

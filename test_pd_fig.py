@@ -20,3 +20,5 @@ plr_pool_json_string = plr_pool.model_dump_json(indent=2)
 plr_pool_frm_1 = PlrPool.model_validate_json(plr_pool_json_string) 
 print(plr_pool_json_string)
 
+# with open("plr_pool.json", 'w') as f:
+#     json.dump(plr_pool_json_string, f, indent=4)
