@@ -1,6 +1,7 @@
 import json
-from subjects.player import PlrPool
+from datetime import datetime 
 import pandas as pd
+from subjects.player import PlrPool
 
 def do_csv_players_frm_json(json_file_name = "plr_pool.json" , csv_file_name ='plr_fig.csv' ) -> pd.DataFrame:
     with open(json_file_name, "r") as file:
@@ -28,7 +29,7 @@ def do_csv_players_frm_json(json_file_name = "plr_pool.json" , csv_file_name ='p
     for curr_plr in plr_pool.pool:
         pd_dict['id'].append(curr_plr.id)
         pd_dict['visits'].append(curr_plr.fig.visits)
-        pd_dict['last_visit'].append(curr_plr.fig.last_visit)
+        pd_dict['last_visit'].append(datetime.strptime(curr_plr.fig.last_visit, "%d/%m/%Y"))
         
         pd_dict['res_sum'].append (curr_plr.fig.total_results.sum)
         pd_dict['res_mean'].append(curr_plr.fig.total_results.mean)

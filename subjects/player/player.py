@@ -12,7 +12,7 @@ class Player(BaseModel):
     fig: PlayerFigures
     
     def play_one_session(self,game_date: datetime):
-        self.fig.last_visit = game_date
+        self.fig.last_visit = game_date.strftime("%d/%m/%Y")
         self.fig.visits +=1
         sess_fig = self.style.sess_fig()
         self.fig.results.append(sess_fig.result)
