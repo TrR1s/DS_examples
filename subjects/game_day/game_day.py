@@ -1,6 +1,7 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
 import random
 from scipy import stats
+from datetime import datetime 
 
 from subjects.player import PlrPool,Player
 
@@ -16,7 +17,7 @@ class GameDay(BaseModel):
     plr_pool: PlrPool= Field(default=PlrPool())
     base_head_count: int= Field(default=20)
     corr_coef: float = Field(default=1.)
-    # today: datetime
+    today: datetime
     @computed_field
     def head_count(self) -> int:
         liambda = int(self.corr_coef*self.base_head_count)
@@ -28,7 +29,7 @@ class GameDay(BaseModel):
         hand_amount =0
         bet_amount =0
         for curr_plr in day_pool:
-            curr_plr.play_one_session()
+            curr_plr.play_one_session(self.today)
             day_res += curr_plr.fig.results[-1]
             bet_amount += curr_plr.fig.bet_amounts[-1]
             hand_amount += curr_plr.fig.hand_amounts[-1]

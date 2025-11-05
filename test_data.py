@@ -17,7 +17,7 @@ x_date = pd.date_range(start_date, end_date)
 plr_pool = PlrPool()
 print(len(plr_pool.pool))
 
-game_day = GameDay(plr_pool=plr_pool)
+game_day = GameDay(plr_pool=plr_pool,today=start_date)
 corr_coef = CorrCoeff()
 total_hand_amounts = []
 day_reses= []

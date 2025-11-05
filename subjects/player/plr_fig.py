@@ -1,5 +1,7 @@
-from pydantic import BaseModel, computed_field,field_validator,Field
 import numpy as np 
+from datetime import datetime
+
+from pydantic import BaseModel, computed_field,field_validator,Field
 
 class TotalFig(BaseModel):
     sum: float|int= Field(default=0)
@@ -13,6 +15,7 @@ class SessionFigures(BaseModel):
     result: float
     
 class PlayerFigures(BaseModel):
+    last_visit: str= Field(default='1/1/2000')
     visits: int = Field(default=0)
     results: list[float] = Field(default=[])
     hand_amounts: list[int] = Field(default=[])

@@ -1,6 +1,7 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
 from scipy import stats
 import random
+from datetime import datetime
 
 from subjects.player.plr_fig import PlayerFigures,SessionFigures
 from subjects.player.plr_style import PlrStyle
@@ -10,7 +11,8 @@ class Player(BaseModel):
     style: PlrStyle
     fig: PlayerFigures
     
-    def play_one_session(self):
+    def play_one_session(self,game_date: datetime):
+        self.fig.last_visit = game_date
         self.fig.visits +=1
         sess_fig = self.style.sess_fig()
         self.fig.results.append(sess_fig.result)

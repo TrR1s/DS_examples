@@ -5,6 +5,7 @@ from subjects.corr_coef import CorrCoeff
 
 def do_one_day(game_day: GameDay, today:datetime,corr_coeff:CorrCoeff) ->DayFigures:
     corr_coeff.today = today
+    game_day.today = today.isoformat()
     game_day.corr_coef = corr_coeff.coeff
     return game_day.dayfig
 

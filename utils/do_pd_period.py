@@ -12,7 +12,7 @@ def do_pd_figures(start_date:datetime,
                   plr_pool: PlrPool, 
                   corr_coef:CorrCoeff ) -> tuple[pd.DataFrame,PlrPool]:
     x_date = pd.date_range(start_date, end_date)
-    game_day = GameDay(plr_pool=plr_pool)
+    game_day = GameDay(plr_pool=plr_pool, today=start_date)
     total_hand_amounts = []
     day_reses= []
     head_counts = []
