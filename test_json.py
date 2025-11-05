@@ -12,6 +12,7 @@ plr_pool = PlrPool.model_validate_json(plr_pool_json_string)
 pd_dict = {
     'id':[],
     'visits':[],
+    'last_visit':[],
     
     'res_sum':[],
     'res_std':[],
@@ -30,6 +31,7 @@ pd_dict = {
 for curr_plr in plr_pool.pool:
     pd_dict['id'].append(curr_plr.id)
     pd_dict['visits'].append(curr_plr.fig.visits)
+    pd_dict['last_visit'].append(curr_plr.fig.last_visit)
     
     pd_dict['res_sum'].append (curr_plr.fig.total_results.sum)
     pd_dict['res_mean'].append(curr_plr.fig.total_results.mean)
