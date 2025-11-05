@@ -31,6 +31,7 @@ def simulator_period(start_date:datetime,
     fig_dict ={
         'Date': x_date,
         'Heads': head_counts,
+        'Day_Result': day_reses,
         'Total_Bets': bet_amounts,
         'Total_Hands': total_hand_amounts
     }
