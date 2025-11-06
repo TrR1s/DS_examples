@@ -2,6 +2,9 @@ from pydantic import BaseModel, computed_field,field_validator,Field
 import random
 from scipy import stats
 from datetime import datetime 
+import numpy as np
+
+
 
 from subjects.player import PlrPool,Player
 
@@ -24,7 +27,13 @@ class GameDay(BaseModel):
         return int(stats.poisson(liambda).rvs())
     @computed_field
     def dayfig(self) -> DayFigures:
-        day_pool = random.sample(self.plr_pool.pool,self.head_count)
+        day_pool =[]
+        plr_nn = list(range(100))
+        while len(day_pool) < self.head_count:
+            rnd_nn =  random.choices(plr_nn, weights=self.plr_pool.prob_100, k=1)[0]
+            if self.plr_pool.pool[rnd_nn] not in day_pool:
+                day_pool.append(self.plr_pool.pool[rnd_nn])
+        # day_pool = random.sample(self.plr_pool.pool,self.head_count)
         day_res = 0
         hand_amount =0
         bet_amount =0

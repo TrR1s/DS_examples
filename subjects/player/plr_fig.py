@@ -22,24 +22,33 @@ class PlayerFigures(BaseModel):
     bet_amounts: list[float] = Field(default=[])
     
     @computed_field
-    def total_results(self)-> TotalFig|None:
-        if len(self.results) ==0: return None
+    def total_results(self)-> TotalFig:
+        if len(self.results) ==0: 
+            return TotalFig(sum=0,
+                            mean=0,
+                            std=0)
         res_np = np.array(self.results)
         return TotalFig(sum=res_np.sum(),
                         mean=res_np.mean(),
                         std=res_np.std())
     
     @computed_field
-    def total_hands(self)-> TotalFig|None:
-        if len(self.hand_amounts) ==0: return None
+    def total_hands(self)-> TotalFig:
+        if len(self.hand_amounts) ==0: 
+            return TotalFig(sum=0,
+                            mean=0,
+                            std=0)
         hands_np = np.array(self.hand_amounts)
         return TotalFig(sum=hands_np.sum(),
                         mean=hands_np.mean(),
                         std=hands_np.std())
         
     @computed_field
-    def total_bets(self)-> TotalFig|None:
-        if len(self.bet_amounts) ==0: return None
+    def total_bets(self)-> TotalFig:
+        if len(self.bet_amounts) ==0: 
+            return TotalFig(sum=0,
+                            mean=0,
+                            std=0)
         bets_np = np.array(self.bet_amounts)
         return TotalFig(sum=bets_np.sum(),
                         mean=bets_np.mean(),
