@@ -1,6 +1,7 @@
 from datetime import datetime 
 import pandas as pd
 from utils import simulator_period,save_sim_resuls
+from subjects.corr_coef import TrendFunc
 
 start_date = datetime.strptime("01/1/2022", "%d/%m/%Y")
 end_date = datetime.strptime("01/5/2022", "%d/%m/%Y")

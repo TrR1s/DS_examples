@@ -1,21 +1,29 @@
 import pandas as pd
 from datetime import datetime
 import json
+import numpy as np
 
-from subjects.corr_coef import CorrCoeff
+from subjects.corr_coef import CorrCoeff,TrendFunc,TrendCoeff
 from subjects.game_day import GameDay
 from subjects.player import PlrPool
 from utils import do_one_day
 from utils.do_csv_players_from_json import do_csv_players_frm_json
+
 class DefaultPoolCorr():
     plr_pool = PlrPool()
     corr_coef = CorrCoeff()
 
+
 def simulator_period(start_date:datetime,
                   end_date:datetime,
                   plr_pool =DefaultPoolCorr.plr_pool, 
-                  corr_coef =  DefaultPoolCorr.corr_coef ) -> tuple[pd.DataFrame,PlrPool]:
+                  trend_func =  TrendFunc.none_func ) -> tuple[pd.DataFrame,PlrPool]:
+    
     x_date = pd.date_range(start_date, end_date)
+    corr_coef =  DefaultPoolCorr.corr_coef
+    trend = TrendCoeff(today=start_date)
+    trend.trend_dict = trend_func(x_date)
+    corr_coef.trend = trend
     game_day = GameDay(plr_pool=plr_pool, today=start_date)
     total_hand_amounts = []
     day_reses= []
