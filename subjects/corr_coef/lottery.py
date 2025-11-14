@@ -66,6 +66,4 @@ if __name__ == '__main__':
     lottery_scheldure =LotteryScheldure(lottery_list = [lottery_coef,lottery_coef_2])
     lottery_scheldure.today = datetime.strptime("06/05/2017", "%d/%m/%Y")
     print(lottery_scheldure.total_add_coef)
-    lottery_scheldure =LotteryScheldure()
-    lottery_scheldure.lottery_list.append(lottery_coef_2)
     
