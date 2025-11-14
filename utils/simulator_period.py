@@ -17,7 +17,8 @@ class DefaultPoolCorr():
 def simulator_period(start_date:datetime,
                   end_date:datetime,
                   plr_pool =DefaultPoolCorr.plr_pool, 
-                  trend_func =  TrendFunc.none_func ) -> tuple[pd.DataFrame,PlrPool]:
+                  trend_func =  TrendFunc.none_func
+                  ) -> tuple[pd.DataFrame,PlrPool]:
     
     x_date = pd.date_range(start_date, end_date)
     corr_coef =  DefaultPoolCorr.corr_coef
