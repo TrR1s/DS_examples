@@ -1,22 +1,22 @@
 from pydantic import BaseModel, computed_field,field_validator,Field
 from datetime import datetime
 
-from subjects.corr_coef.lottery import LotteryCoeff 
+from subjects.corr_coef.lottery import LotteryCoeff, LotteryScheldure
 from subjects.corr_coef.week_day import WeekDayCoef 
 from subjects.corr_coef.trend import TrendCoeff 
 
 class CorrCoeff(BaseModel):
     today: datetime=Field(default=datetime.today())
-    lottery: LotteryCoeff|None = Field(default=None)
+    lottery_scheldue: LotteryScheldure|None = Field(default=None)
     week_day: WeekDayCoef|None = Field(default=WeekDayCoef())
     trend: TrendCoeff|None = Field(default=None)
     
     @computed_field
     def lottery_add(self)->float:
-        if self.lottery is None:
+        if self.lottery_scheldue is None:
             return 0
-        self.lottery.today = self.today
-        return self.lottery.add_coef
+        self.lottery_scheldue.today = self.today
+        return self.lottery_scheldue.total_add_coef
     
     @computed_field
     def week_day_add(self)->float:
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     lottery_fig = LotteryFig(day_lottery = datetime.strptime("05/05/2017", "%d/%m/%Y") )
     lottery_coef = LotteryCoeff(today=datetime.strptime("05/05/2017", "%d/%m/%Y"), lottery_fig = lottery_fig)
     corr_coef = CorrCoeff(
-        lottery=lottery_coef,
+        lottery_scheldue=lottery_coef,
         week_day=week_coeff,
         trend=trend_coeff, 
         today=datetime.strptime("05/05/2017", "%d/%m/%Y")

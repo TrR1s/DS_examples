@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 import numpy as np
 
-from subjects.corr_coef import CorrCoeff,TrendFunc,TrendCoeff
+from subjects.corr_coef import CorrCoeff,TrendFunc,TrendCoeff,LotteryScheldure
 from subjects.game_day import GameDay
 from subjects.player import PlrPool
 from utils import do_one_day
@@ -17,7 +17,8 @@ class DefaultPoolCorr():
 def simulator_period(start_date:datetime,
                   end_date:datetime,
                   plr_pool =DefaultPoolCorr.plr_pool, 
-                  trend_func =  TrendFunc.none_func
+                  trend_func =  TrendFunc.none_func,
+                  lottery_scheldure =None,
                   ) -> tuple[pd.DataFrame,PlrPool]:
     
     x_date = pd.date_range(start_date, end_date)
@@ -25,6 +26,7 @@ def simulator_period(start_date:datetime,
     trend = TrendCoeff(today=start_date)
     trend.trend_dict = trend_func(x_date)
     corr_coef.trend = trend
+    corr_coef.lottery_scheldue = lottery_scheldure
     game_day = GameDay(plr_pool=plr_pool, today=start_date)
     total_hand_amounts = []
     day_reses= []
